@@ -1,53 +1,62 @@
 import express from "express";
-import cors from "cors";
-import morgan from "morgan";
-import mysql from "mysql2";
-import adminRoutes from "./routes/adminRoutes.js";
-import pegawaiRoutes from "./routes/pegawaiRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
 import dotenv from "dotenv";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+
+import laporanRoutes from "./routes/laporanRoutes.js";
+import lokasiRoutes from "./routes/lokasiRoutes.js";
+import dispenserRoutes from "./routes/dispenserRoutes.js";
+import akunRoutes from "./routes/akunRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+
 dotenv.config();
-
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-});
-
-app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(helmet());
 app.use(morgan("dev"));
 
-app.use("/api/admin", adminRoutes);
-app.use("/api/pegawai", pegawaiRoutes);
-app.use("/api/auth", authRoutes);
-
 app.get("/", (req, res) => {
-  res.json({
-    message: "API is running POOOOOOK",
-    description: "Sistem manajemen dispenser dan laporan tisu otomatis.",
+  res.status(200).json({
+    status: "success",
+    message: "DAMNNNN API is running BRUUUUHHHH ",
+    author: "BANG LURIAHC",
     version: "1.0.0",
-    endpoints: {
-      auth: {
-        login: "/api/auth/login"
-      },
-      admin: {
-        pegawai: "/api/admin/pegawai",
-        dispenser: "/api/admin/dispenser",
-        lokasi: "/api/admin/lokasi"
-      },
-      pegawai: {
-        laporan: "/api/laporan_pergantian/laporan_pergantian",
-      }
-    }
+    timestamp: new Date().toISOString(),
   });
 });
 
+app.use("/api/admin", adminRoutes);
+app.use("/api/akun", akunRoutes);
+app.use("/api/lokasi", lokasiRoutes);
+app.use("/api/dispenser", dispenserRoutes);
+app.use("/api/laporan", laporanRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({
+    status: "error",
+    message: "Route tidak ditemukan di server",
+    url: req.originalUrl,
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(" Terjadi error:", err);
+  res.status(500).json({
+    status: "error",
+    message: "Terjadi kesalahan internal server ",
+    detail: err.message,
+  });
+});
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`SERVERMU UDAH JALAN CESKUUU http://localhost:${PORT}`);
+  console.log("========================================");
+  console.log(` Server berjalan di port ${PORT}`);
+  console.log(` Akses API: http://localhost:${PORT}`);
+  console.log("========================================");
 });
