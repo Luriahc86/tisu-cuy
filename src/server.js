@@ -55,8 +55,8 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("========================================");
+  console.log("WLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
   console.log(` Server berjalan di port ${PORT}`);
   console.log(` Akses API: http://localhost:${PORT}`);
-  console.log("========================================");
+  console.log("WLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 });
