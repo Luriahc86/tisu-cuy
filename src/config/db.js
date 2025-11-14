@@ -16,7 +16,7 @@ const db = mysql.createPool({
 try {
   const connection = await db.getConnection();
   console.log("DATABASE BERHASIL TERHUBUNG SOD!");
-  connection.release(); // lepas koneksi ke pool
+  connection.release();
 } catch (err) {
   console.error("DATABASE GAGAL TERHUBUNG SOD:", err.message);
 }

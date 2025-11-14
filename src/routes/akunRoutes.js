@@ -12,3 +12,4 @@ router.put("/", updateAkun);
 router.delete("/", deleteAkun);
 
 export default router;
+
