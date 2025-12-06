@@ -23,13 +23,3 @@ export const createLaporan = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-
-export const deleteLaporan = async (req, res) => {
-  try {
-    const { id_akun, id_laporan } = req.body;
-    await db.query("CALL sp_delete_laporan_penggantian(?, ?)", [id_akun, id_laporan]);
-    res.status(200).json({ message: "Laporan berhasil dihapus" });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};

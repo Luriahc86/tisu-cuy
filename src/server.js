@@ -8,7 +8,6 @@ import laporanRoutes from "./routes/laporanRoutes.js";
 import lokasiRoutes from "./routes/lokasiRoutes.js";
 import dispenserRoutes from "./routes/dispenserRoutes.js";
 import akunRoutes from "./routes/akunRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -29,7 +28,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/admin", adminRoutes);
 app.use("/api/akun", akunRoutes);
 app.use("/api/lokasi", lokasiRoutes);
 app.use("/api/dispenser", dispenserRoutes);

@@ -5,6 +5,5 @@ const router = express.Router();
 
 router.get("/", getLaporan);
 router.post("/", createLaporan);
-router.delete("/", deleteLaporan);
 
 export default router;
