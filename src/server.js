@@ -4,10 +4,12 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 
-import laporanRoutes from "./routes/laporanRoutes.js";
-import lokasiRoutes from "./routes/lokasiRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import locationRoutes from "./routes/locationRoutes.js";
 import dispenserRoutes from "./routes/dispenserRoutes.js";
-import akunRoutes from "./routes/akunRoutes.js";
+import reportRoutes from "./routes/laporanRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -21,40 +23,53 @@ app.use(morgan("dev"));
 app.get("/", (req, res) => {
   res.status(200).json({
     status: "success",
-    message: "DAMNNNN API is running BRUUUUHHHH ",
+    message: "🚀 API is running perfectly!",
     author: "BANG LURIAHC",
-    version: "1.0.0",
+    version: "2.0.0",
     timestamp: new Date().toISOString(),
+    endpoints: {
+      auth: "/api/auth",
+      users: "/api/users",
+      locations: "/api/locations",
+      dispensers: "/api/dispensers",
+      reports: "/api/reports",
+      dashboard: "/api/dashboard",
+    },
   });
 });
 
-app.use("/api/akun", akunRoutes);
-app.use("/api/lokasi", lokasiRoutes);
-app.use("/api/dispenser", dispenserRoutes);
-app.use("/api/laporan", laporanRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/locations", locationRoutes);
+app.use("/api/dispensers", dispenserRoutes);
+app.use("/api/reports", reportRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
     status: "error",
     message: "Route tidak ditemukan di server",
     url: req.originalUrl,
+    timestamp: new Date().toISOString(),
   });
 });
 
 app.use((err, req, res, next) => {
-  console.error(" Terjadi error:", err);
+  console.error("❌ Error:", err);
   res.status(500).json({
     status: "error",
-    message: "Terjadi kesalahan internal server ",
+    message: "Terjadi kesalahan internal server",
     detail: err.message,
+    timestamp: new Date().toISOString(),
   });
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("WLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-  console.log(` Server berjalan di port ${PORT}`);
-  console.log(` Akses API: http://localhost:${PORT}`);
-  console.log("WLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+  console.log("═══════════════════════════════════════════════════════════");
+  console.log("🎉 Server berjalan dengan sempurna!");
+  console.log(`📍 Port: ${PORT}`);
+  console.log(`🌐 Akses API: http://localhost:${PORT}`);
+  console.log("═══════════════════════════════════════════════════════════");
 });

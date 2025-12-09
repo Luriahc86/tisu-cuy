@@ -1,4 +1,29 @@
 DELIMITER $$
+
+CREATE OR REPLACE VIEW v_register AS
+SELECT 
+    id_akun,
+    username,
+    role,
+    nama_lengkap,
+    email,
+    created_at AS waktu_registrasi
+FROM akun;
+
+CREATE OR REPLACE VIEW v_login AS
+SELECT
+    l.id_login,
+    l.id_akun,
+    a.username AS akun_username,
+    l.username AS login_username,
+    a.nama_lengkap,
+    a.email,
+    l.role,
+    l.waktu_login
+FROM login l
+JOIN akun a ON l.id_akun = a.id_akun
+ORDER BY l.waktu_login DESC;
+
 CREATE OR REPLACE VIEW v_akun AS
 SELECT 
     id_akun,

@@ -1,4 +1,67 @@
 DELIMITER $$
+CREATE PROCEDURE sp_register (
+    IN p_username VARCHAR(50),
+    IN p_password VARCHAR(255),
+    IN p_role ENUM('ADMIN', 'PEGAWAI')
+)
+BEGIN
+    DECLARE v_exists INT;
+
+    SELECT COUNT(*) INTO v_exists
+    FROM akun
+    WHERE username = p_username;
+
+    IF v_exists > 0 THEN
+        SELECT 'ERROR' AS status, 'Username sudah digunakan' AS message;
+        LEAVE END;
+    END IF;
+
+    INSERT INTO akun (username, password, role)
+    VALUES (p_username, p_password, p_role);
+
+    SELECT 
+        'SUCCESS' AS status,
+        'Registrasi berhasil' AS message,
+        LAST_INSERT_ID() AS id_akun,
+        p_username AS username,
+        p_role AS role;
+END$$
+
+CREATE PROCEDURE sp_login (
+    IN p_username VARCHAR(50),
+    IN p_password VARCHAR(255)
+)
+BEGIN
+    DECLARE v_id_akun INT;
+    DECLARE v_role ENUM('ADMIN', 'PEGAWAI');
+    DECLARE v_stored_pass VARCHAR(255);
+
+    SELECT id_akun, password, role
+    INTO v_id_akun, v_stored_pass, v_role
+    FROM akun
+    WHERE username = p_username;
+
+    IF v_id_akun IS NULL THEN
+        SELECT 'ERROR' AS status, 'Username tidak ditemukan' AS message;
+        LEAVE END;
+    END IF;
+
+    IF v_stored_pass <> p_password THEN
+        SELECT 'ERROR' AS status, 'Password salah' AS message;
+        LEAVE END;
+    END IF;
+
+    INSERT INTO login (id_akun, username, role)
+    VALUES (v_id_akun, p_username, v_role);
+
+    SELECT 
+        'SUCCESS' AS status,
+        'Login berhasil' AS message,
+        v_id_akun AS id_akun,
+        p_username AS username,
+        v_role AS role;
+END$$
+
 CREATE PROCEDURE sp_insert_akun (
     IN p_id_akun_aktif INT,
     IN p_username VARCHAR(50),
