@@ -3,8 +3,6 @@ import {
   getAllReports,
   getReportById,
   createReport,
-  updateReport,
-  deleteReport,
   getReportsByDispenser,
   getReportsByUser,
   getReportsByDateRange,
