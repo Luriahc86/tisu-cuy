@@ -32,13 +32,13 @@ BEGIN
     RETURN total > 0;
 END;
 
-CREATE FUNCTION fn_like_exists(p_user INT, p_gambar INT)
+CREATE FUNCTION fn_likes_exists(p_user INT, p_gambar INT)
 RETURNS BOOLEAN
 DETERMINISTIC
 BEGIN
     DECLARE total INT;
     SELECT COUNT(id) INTO total
-    FROM `like`
+    FROM likes
     WHERE id_user=p_user AND id_gambar=p_gambar;
     RETURN total > 0;
 END;

@@ -58,9 +58,9 @@ BEGIN
     COMMIT;
 END;
 
-CREATE PROCEDURE sp_insert_like(IN p_user INT, IN p_gambar INT)
+CREATE PROCEDURE sp_insert_likes(IN p_user INT, IN p_gambar INT)
 BEGIN
-    IF fn_like_exists(p_user,p_gambar) THEN
+    IF fn_likes_exists(p_user,p_gambar) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='Sudah like';
     END IF;
 

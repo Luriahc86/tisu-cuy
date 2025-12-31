@@ -1,3 +1,4 @@
+-- Active: 1765519306496@@trolley.proxy.rlwy.net@28263@cleaning_system
 DROP DATABASE IF EXISTS cleaning_system;
 CREATE DATABASE cleaning_system;
 USE cleaning_system;
@@ -79,6 +80,6 @@ CREATE INDEX idx_post_user ON post(id_user);
 CREATE INDEX idx_post_gambar ON post(id_gambar);
 CREATE INDEX idx_comment_user ON comment(id_user);
 CREATE INDEX idx_comment_gambar ON comment(id_gambar);
-CREATE INDEX idx_likes_user ON like(id_user);
-CREATE INDEX idx_likes_gambar ON like(id_gambar);
+CREATE INDEX idx_likes_user ON likes(id_user);
+CREATE INDEX idx_likes_gambar ON likes(id_gambar);
 COMMIT;
