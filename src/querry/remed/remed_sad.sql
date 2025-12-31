@@ -1,32 +1,6 @@
--- Active: 1747977627544@@127.0.0.1@3306@cleaning_system
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Dec 19, 2025 at 03:07 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.1.6
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `remed_sad`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `comment`
---
+DROP DATABASE IF EXISTS cleaning_system;
+CREATE DATABASE cleaning_system;
+USE cleaning_system;
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
@@ -145,8 +119,15 @@ ALTER TABLE `like`
 ALTER TABLE `post`
   ADD CONSTRAINT `fk_gambar_post` FOREIGN KEY (`id_gambar`) REFERENCES `gambar` (`id`),
   ADD CONSTRAINT `fk_user_post` FOREIGN KEY (`id_user`) REFERENCES `pengguna` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+CREATE TABLE log_hapus_gambar (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_gambar INT,
+    judul VARCHAR(50),
+    deleted_at DATETIME
+);
+
+COMMIT;

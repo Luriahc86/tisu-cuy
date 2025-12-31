@@ -32,7 +32,32 @@ import locationRoutes from "./routes/locationRoutes.js";
 import dispenserRoutes from "./routes/dispenserRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
-import commentRoutes from "./routes/commentRoutes.js";
+
+///////////////////////////////////////////////////////////////////////////////
+// =======================
+// Import Routes remed
+// =======================
+import penggunaRoutes from "./routes/pengguna.routes.js";
+import gambarRoutes from "./routes/gambar.routes.js";
+import postRoutes from "./routes/post.routes.js";
+import commentRoutes from "./routes/comment.routes.js";
+import likeRoutes from "./routes/like.routes.js";
+// =======================
+// API Routes remed
+// =======================
+app.use("/api", penggunaRoutes);
+app.use("/api", gambarRoutes);
+app.use("/api", postRoutes);
+app.use("/api", commentRoutes);
+app.use("/api", likeRoutes);
+// =======================
+//////////////////////////////////////////////////////////////////////////////////
+import gambarRoutes from "./routes/gambar.routes.js";
+app.use("/api", gambarRoutes);
+POST:"/api/gambar"
+DELETE:"/api/gambar/:id"
+GET:"/api/view/gambar"
+/////////////////////////////////////////////////////////////////////////////////
 
 // =======================
 // Root Endpoint
@@ -45,13 +70,16 @@ app.get("/", (req, res) => {
     version: "2.0.0",
     timestamp: new Date().toISOString(),
     endpoints: {
-      auth: "/api/auth",
-      users: "/api/users",
-      locations: "/api/locations",
-      dispensers: "/api/dispensers",
-      reports: "/api/reports",
-      dashboard: "/api/dashboard",
-      comments: "/api/comments",
+                  pengguna: "/api/pengguna",
+                  gambar: "/api/gambar",
+                  posts: "/api/post",
+                  comments: "/api/comment",
+                  likes: "/api/like",
+                  pengguna: "/api/view/pengguna",
+                  gambar: "/api/view/gambar",
+                  posts: "/api/view/post",
+                  comments: "/api/view/comment",
+                  likes: "/api/view/like"
     },
   });
 });
@@ -65,7 +93,6 @@ app.use("/api/locations", locationRoutes);
 app.use("/api/dispensers", dispenserRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/comments", commentRoutes);
 
 // =======================
 // 404 Handler

@@ -1,13 +1,26 @@
 DELIMITER $$
 
-CREATE TRIGGER trg_before_delete_comment
-BEFORE DELETE ON comment
+CREATE TRIGGER trg_after_insert_gambar
+AFTER INSERT ON gambar
 FOR EACH ROW
 BEGIN
-    IF OLD.id IS NULL THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Comment ID tidak valid';
-    END IF;
-END $$
+    INSERT INTO log_insert_gambar (
+        id_gambar,
+        judul,
+        inserted_at
+    )
+    VALUES (
+        NEW.id,
+        NEW.judul,
+        NOW()
+    );
+END$$
+CREATE TRIGGER trg_after_delete_gambar
+AFTER DELETE ON gambar
+FOR EACH ROW
+BEGIN
+    INSERT INTO log_hapus_gambar(id_gambar, judul, deleted_at)
+    VALUES (OLD.id, OLD.judul, NOW());
+END$$
 
 DELIMITER ;
