@@ -51,13 +51,6 @@ app.use("/api", postRoutes);
 app.use("/api", commentRoutes);
 app.use("/api", likeRoutes);
 // =======================
-//////////////////////////////////////////////////////////////////////////////////
-import gambarRoutes from "./routes/gambar.routes.js";
-app.use("/api", gambarRoutes);
-POST:"/api/gambar"
-DELETE:"/api/gambar/:id"
-GET:"/api/view/gambar"
-/////////////////////////////////////////////////////////////////////////////////
 
 // =======================
 // Root Endpoint
