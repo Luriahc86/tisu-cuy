@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS cleaning_system;
 CREATE DATABASE cleaning_system;
 USE cleaning_system;
 
-Drop TABLE IF EXISTS like;
+Drop TABLE IF EXISTS likes;
 Drop TABLE IF EXISTS comment;
 Drop TABLE IF EXISTS post;
 Drop TABLE IF EXISTS gambar;
@@ -57,18 +57,18 @@ CREATE TABLE comment (
         ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE like (
+CREATE TABLE likes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT NOT NULL,
     id_gambar INT NOT NULL,
 
-    CONSTRAINT fk_user_like
+    CONSTRAINT fk_user_likes
         FOREIGN KEY (id_user)
         REFERENCES pengguna(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
 
-    CONSTRAINT fk_gambar_like
+    CONSTRAINT fk_gambar_likes
         FOREIGN KEY (id_gambar)
         REFERENCES gambar(id)
         ON DELETE CASCADE
@@ -79,6 +79,6 @@ CREATE INDEX idx_post_user ON post(id_user);
 CREATE INDEX idx_post_gambar ON post(id_gambar);
 CREATE INDEX idx_comment_user ON comment(id_user);
 CREATE INDEX idx_comment_gambar ON comment(id_gambar);
-CREATE INDEX idx_like_user ON like(id_user);
-CREATE INDEX idx_like_gambar ON like(id_gambar);
+CREATE INDEX idx_likes_user ON like(id_user);
+CREATE INDEX idx_likes_gambar ON like(id_gambar);
 COMMIT;
